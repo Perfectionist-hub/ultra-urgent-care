@@ -120,7 +120,6 @@ export function HomeView() {
                   <h3 className="mt-1 font-display text-2xl tracking-tight">{provider.name}</h3>
                   <p className="mt-1 text-sm text-muted-foreground">{provider.credentials}</p>
                   <p className="mt-3 text-sm leading-relaxed">{provider.focus}</p>
-                  <p className="mt-3 text-xs text-muted-foreground">{copy.providersPage.illustration}</p>
                 </div>
               </article>
             ))}

@@ -25,8 +25,7 @@ export function ProvidersView() {
               />
             </figure>
             <div className="px-6 py-6 sm:px-8">
-              <p className="text-xs tracking-[0.14em] text-clay uppercase">{copy.providersPage.illustration}</p>
-              <h2 className="mt-3 font-display text-3xl tracking-tight text-ink">{provider.name}</h2>
+              <h2 className="font-display text-3xl tracking-tight text-ink">{provider.name}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{provider.credentials}</p>
               <p className="mt-3 text-sm text-primary">{provider.role}</p>
               <p className="mt-5 text-lg leading-relaxed">{provider.bio}</p>
