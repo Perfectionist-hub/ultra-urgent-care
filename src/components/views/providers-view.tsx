@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ClinicPhoto } from "@/components/clinic-photo";
 import { useLocale } from "@/components/locale-provider";
 import { getCopy } from "@/lib/ui-copy";
 
@@ -14,15 +15,21 @@ export function ProvidersView() {
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{copy.providersPage.lede}</p>
       <div className="mt-12 space-y-8">
         {copy.providers.map((provider) => (
-          <article key={provider.id} className="grid gap-6 border-t border-border py-8 lg:grid-cols-[16rem_1fr]">
-            <div>
-              <p className="font-display text-5xl text-clay" aria-hidden>{provider.monogram}</p>
+          <article key={provider.id} className="grid gap-6 overflow-hidden rounded-[1.75rem] border border-border bg-card lg:grid-cols-[18rem_1fr]">
+            <figure className={provider.id === "sidhu" ? "bg-lilac" : "bg-sand"}>
+              <ClinicPhoto
+                name={provider.id === "sidhu" ? "sidhu" : "ahsan"}
+                alt={provider.id === "sidhu" ? copy.gallery.sidhu : copy.gallery.ahsan}
+                className="h-80 w-full object-cover object-top lg:h-full"
+                sizes="(min-width: 1024px) 18rem, 100vw"
+              />
+            </figure>
+            <div className="px-6 py-6 sm:px-8">
+              <p className="text-xs tracking-[0.14em] text-clay uppercase">{copy.providersPage.illustration}</p>
               <h2 className="mt-3 font-display text-3xl tracking-tight text-ink">{provider.name}</h2>
               <p className="mt-2 text-sm text-muted-foreground">{provider.credentials}</p>
               <p className="mt-3 text-sm text-primary">{provider.role}</p>
-            </div>
-            <div>
-              <p className="text-lg leading-relaxed">{provider.bio}</p>
+              <p className="mt-5 text-lg leading-relaxed">{provider.bio}</p>
               <p className="mt-4 text-muted-foreground">{provider.focus}</p>
               <Link href={provider.id === "ahsan" ? "/services/pain-management" : "/services/psychiatry"} className="mt-5 inline-block text-sm text-primary">
                 {copy.providersPage.book}

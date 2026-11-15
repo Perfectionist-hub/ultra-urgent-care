@@ -1,8 +1,10 @@
 "use client";
 
+import { ClinicPhoto } from "@/components/clinic-photo";
 import { OpenNow } from "@/components/open-now";
 import { useLocale } from "@/components/locale-provider";
 import { hoursLabel, locations, placeName } from "@/lib/clinic";
+import { locationPhoto, type PhotoName } from "@/lib/gallery";
 import { getCopy } from "@/lib/ui-copy";
 
 export function LocationsView() {
@@ -21,8 +23,16 @@ export function LocationsView() {
       </div>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {locations.map((location, index) => (
-          <article key={location.id} className="rounded-[1.6rem] border border-border bg-card p-7">
-            <p className="text-sm text-primary">{roles[index]}</p>
+          <article key={location.id} className="overflow-hidden rounded-[1.6rem] border border-border bg-card">
+            <ClinicPhoto
+              name={locationPhoto[location.id] ?? "storefront"}
+              alt={copy.gallery[(locationPhoto[location.id] ?? "storefront") as PhotoName]}
+              className="h-52 w-full object-cover"
+              sizes="(min-width: 1024px) 36rem, 100vw"
+            />
+            <div className="p-7">
+            <p className="text-xs text-muted-foreground">{copy.gallery.scene}</p>
+            <p className="mt-3 text-sm text-primary">{roles[index]}</p>
             <h2 className="mt-2 font-display text-4xl tracking-tight text-ink">{placeName(location, locale)}</h2>
             <p className="mt-4 text-lg">
               {location.street}
@@ -38,6 +48,7 @@ export function LocationsView() {
               <a className="font-medium text-primary" href={location.mapsUrl} target="_blank" rel="noreferrer">
                 {copy.locationsPage.maps}
               </a>
+            </div>
             </div>
           </article>
         ))}

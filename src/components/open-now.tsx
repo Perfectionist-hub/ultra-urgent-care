@@ -22,7 +22,7 @@ export function OpenNow({ inverted = true }: { inverted?: boolean }) {
       aria-live="polite"
       className={
         inverted
-          ? "rounded-[1.75rem] bg-ink p-6 text-primary-foreground sm:p-7"
+          ? "rounded-[1.75rem] bg-primary p-6 text-primary-foreground ring-4 ring-gold sm:p-7"
           : "rounded-[1.75rem] border border-border bg-card p-6 sm:p-7"
       }
     >

@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { ClinicPhoto } from "@/components/clinic-photo";
 import { useLocale } from "@/components/locale-provider";
+import { servicePhoto, type PhotoName } from "@/lib/gallery";
 import { getCopy } from "@/lib/ui-copy";
 
 export function ServiceView({ slug }: { slug: string }) {
@@ -11,6 +13,15 @@ export function ServiceView({ slug }: { slug: string }) {
   const service = copy.services.find((item) => item.slug === slug) ?? copy.services[0];
   return (
     <main id="content" className="mx-auto max-w-6xl px-5 py-14">
+      <figure className="mb-10 overflow-hidden rounded-[1.75rem] bg-foam ring-4 ring-foam">
+        <ClinicPhoto
+          name={servicePhoto[service.slug] ?? "exam"}
+          alt={copy.gallery[(servicePhoto[service.slug] ?? "exam") as PhotoName]}
+          priority
+          className="h-64 w-full object-cover sm:h-80"
+          sizes="(min-width: 1024px) 72rem, 100vw"
+        />
+      </figure>
       <p className="text-xs tracking-[0.18em] text-primary uppercase">{service.kicker}</p>
       <h1 className="mt-3 max-w-3xl font-display text-5xl tracking-tight text-ink">{service.name}</h1>
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{service.summary}</p>

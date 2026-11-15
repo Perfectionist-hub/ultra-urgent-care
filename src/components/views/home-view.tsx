@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { ClinicPhoto } from "@/components/clinic-photo";
 import { FaqList } from "@/components/faq-list";
 import { OpenNow } from "@/components/open-now";
 import { useLocale } from "@/components/locale-provider";
+import { servicePhoto, type PhotoName } from "@/lib/gallery";
 import { getCopy } from "@/lib/ui-copy";
 
 export function HomeView() {
@@ -31,13 +33,37 @@ export function HomeView() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 pb-14">
+        <div className="grid gap-4 md:grid-cols-12">
+          <figure className="overflow-hidden rounded-[1.75rem] bg-foam ring-4 ring-foam md:col-span-7">
+            <ClinicPhoto name="waiting" alt={copy.gallery.waiting} priority className="h-72 w-full object-cover sm:h-[26rem]" sizes="(min-width: 768px) 58vw, 100vw" />
+          </figure>
+          <div className="grid gap-4 md:col-span-5">
+            <figure className="overflow-hidden rounded-[1.5rem] bg-sand ring-4 ring-sand">
+              <ClinicPhoto name="exam" alt={copy.gallery.exam} className="h-44 w-full object-cover sm:h-52" sizes="(min-width: 768px) 36vw, 100vw" />
+            </figure>
+            <figure className="overflow-hidden rounded-[1.5rem] bg-gold ring-4 ring-gold">
+              <ClinicPhoto name="evening" alt={copy.gallery.evening} className="h-44 w-full object-cover sm:h-52" sizes="(min-width: 768px) 36vw, 100vw" />
+            </figure>
+          </div>
+        </div>
+        <p className="mt-3 max-w-3xl text-xs leading-relaxed text-muted-foreground">{copy.gallery.note}</p>
+      </section>
+
       <section className="border-y border-border bg-card">
         <div className="mx-auto max-w-6xl px-5">
           <ul>
             {copy.services.map((service, index) => (
               <li key={service.slug} className="border-b border-border last:border-b-0">
-                <Link href={`/services/${service.slug}`} className="group grid gap-3 py-7 md:grid-cols-[6rem_1fr_auto] md:items-center md:gap-8">
-                  <span className="font-display text-2xl text-clay">0{index + 1}</span>
+                <Link href={`/services/${service.slug}`} className="group grid gap-4 py-5 md:grid-cols-[7.5rem_1fr_auto] md:items-center md:gap-8">
+                  <span className={`overflow-hidden rounded-2xl ${["bg-foam", "bg-sand", "bg-lilac"][index] ?? "bg-foam"}`}>
+                    <ClinicPhoto
+                      name={servicePhoto[service.slug] ?? "exam"}
+                      alt={copy.gallery[(servicePhoto[service.slug] ?? "exam") as PhotoName]}
+                      className="h-24 w-full object-cover"
+                      sizes="120px"
+                    />
+                  </span>
                   <span>
                     <span className="block font-display text-3xl tracking-tight text-ink group-hover:text-primary">{service.name}</span>
                     <span className="mt-1 block text-muted-foreground">{service.promise}</span>
@@ -72,26 +98,33 @@ export function HomeView() {
         </div>
       </section>
 
-      <section className="bg-ink text-primary-foreground">
+      <section className="bg-primary text-primary-foreground">
         <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-xs tracking-[0.18em] text-foam uppercase">{copy.home.peopleKicker}</p>
+            <p className="text-xs tracking-[0.18em] text-gold uppercase">{copy.home.peopleKicker}</p>
             <h2 className="mt-3 font-display text-4xl tracking-tight">{copy.home.peopleTitle}</h2>
-            <p className="mt-4 leading-relaxed text-white/70">{copy.home.peopleBody}</p>
+            <p className="mt-4 leading-relaxed text-white/80">{copy.home.peopleBody}</p>
+            <Link href="/providers" className="mt-6 inline-block text-sm text-gold">{copy.home.providerLink}</Link>
           </div>
-          <div className="grid gap-4">
+          <div className="grid gap-4 sm:grid-cols-2">
             {copy.providers.map((provider) => (
-              <article key={provider.id} className="rounded-[1.4rem] bg-white/10 p-6">
-                <p className="text-sm text-foam">{provider.role}</p>
-                <h3 className="mt-1 font-display text-3xl tracking-tight">{provider.name}</h3>
-                <p className="mt-1 text-sm text-white/60">{provider.credentials}</p>
-                <p className="mt-4 leading-relaxed text-white/80">{provider.focus}</p>
+              <article key={provider.id} className="overflow-hidden rounded-[1.4rem] bg-card text-ink">
+                <ClinicPhoto
+                  name={provider.id === "sidhu" ? "sidhu" : "ahsan"}
+                  alt={provider.id === "sidhu" ? copy.gallery.sidhu : copy.gallery.ahsan}
+                  className="h-64 w-full object-cover object-top"
+                  sizes="(min-width: 640px) 24vw, 100vw"
+                />
+                <div className="p-5">
+                  <p className="text-sm text-primary">{provider.role}</p>
+                  <h3 className="mt-1 font-display text-2xl tracking-tight">{provider.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{provider.credentials}</p>
+                  <p className="mt-3 text-sm leading-relaxed">{provider.focus}</p>
+                  <p className="mt-3 text-xs text-muted-foreground">{copy.providersPage.illustration}</p>
+                </div>
               </article>
             ))}
           </div>
-        </div>
-        <div className="mx-auto max-w-6xl px-5 pb-14">
-          <Link href="/providers" className="text-sm text-foam">{copy.home.providerLink}</Link>
         </div>
       </section>
 
