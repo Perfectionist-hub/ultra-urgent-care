@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Wordmark } from "@/components/mark";
 import { LanguageSwitch, useLocale } from "@/components/locale-provider";
@@ -101,6 +101,14 @@ export function CallBar() {
             {copy.nav.call} {placeShort(location, locale)}
           </a>
         ))}
+        <button
+          type="button"
+          className="col-span-2 inline-flex h-10 items-center justify-center gap-2 rounded-full text-sm text-primary"
+          onClick={() => window.dispatchEvent(new Event("ultra-open-chat"))}
+        >
+          <MessageCircle className="size-4" />
+          {copy.chat.button}
+        </button>
       </div>
     </div>
   );

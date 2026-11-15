@@ -44,6 +44,12 @@ export function ChatWidget() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  useEffect(() => {
+    const openFromBar = () => setOpen(true);
+    window.addEventListener("ultra-open-chat", openFromBar);
+    return () => window.removeEventListener("ultra-open-chat", openFromBar);
+  }, []);
+
   function ask(question: string) {
     const cleaned = question.trim();
     if (!cleaned) return;
@@ -138,7 +144,7 @@ export function ChatWidget() {
       ) : (
         <button
           type="button"
-          className="fixed right-4 bottom-20 z-50 inline-flex items-center gap-2 rounded-full bg-ink px-4 py-3 text-sm text-primary-foreground shadow-lg md:bottom-6"
+          className="fixed right-4 bottom-6 z-50 hidden items-center gap-2 rounded-full bg-ink px-4 py-3 text-sm text-primary-foreground shadow-lg md:inline-flex"
           aria-expanded={false}
           aria-controls={panelId}
           onClick={() => setOpen(true)}
