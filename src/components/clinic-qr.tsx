@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import QRCode from "qrcode";
 
-export function ClinicQr({ value, label }: { value: string; label: string }) {
+export function ClinicQr({ value, label, className = "size-28" }: { value: string; label: string; className?: string }) {
   const [src, setSrc] = useState("");
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export function ClinicQr({ value, label }: { value: string; label: string }) {
 
   return (
     <div
-      className="size-28 bg-white [&_svg]:h-full [&_svg]:w-full"
+      className={`${className} bg-white [&_svg]:h-full [&_svg]:w-full`}
       role="img"
       aria-label={label}
       dangerouslySetInnerHTML={{ __html: src }}
