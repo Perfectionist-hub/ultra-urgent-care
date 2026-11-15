@@ -76,6 +76,32 @@ export function HomeView() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <p className="text-xs tracking-[0.18em] text-primary uppercase">{copy.why.kicker}</p>
+        <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight text-ink">{copy.why.title}</h2>
+        <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground">{copy.why.lede}</p>
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {copy.why.points.map(([title, body], index) => (
+            <li key={title} className={`rounded-[1.4rem] p-5 ${["bg-foam", "bg-sand", "bg-gold", "bg-lilac", "bg-foam", "bg-sand"][index]}`}>
+              <h3 className="font-display text-2xl tracking-tight text-ink">{title}</h3>
+              <p className="mt-2 leading-relaxed text-foreground/80">{body}</p>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-14">
+          <p className="text-xs tracking-[0.18em] text-clay uppercase">{copy.why.roofKicker}</p>
+          <h3 className="mt-3 font-display text-3xl tracking-tight text-ink">{copy.why.roofTitle}</h3>
+          <ul className="mt-6 grid gap-4 md:grid-cols-2">
+            {copy.why.groups.map(([title, body]) => (
+              <li key={title} className="rounded-2xl border border-border bg-card px-5 py-4">
+                <p className="font-medium text-primary">{title}</p>
+                <p className="mt-1 leading-relaxed text-foreground/80">{body}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="mx-auto grid max-w-6xl gap-12 px-5 py-16 lg:grid-cols-2">
         <div>
           <p className="text-xs tracking-[0.18em] text-primary uppercase">{copy.home.comeKicker}</p>
@@ -112,8 +138,8 @@ export function HomeView() {
                 <ClinicPhoto
                   name={provider.id === "sidhu" ? "sidhu" : "ahsan"}
                   alt={provider.id === "sidhu" ? copy.gallery.sidhu : copy.gallery.ahsan}
-                  className="h-64 w-full object-cover object-top"
-                  sizes="(min-width: 640px) 24vw, 100vw"
+                  className="h-auto w-full bg-[#e4eef6] object-contain"
+                  sizes="(min-width: 640px) 280px, 100vw"
                 />
                 <div className="p-5">
                   <p className="text-sm text-primary">{provider.role}</p>

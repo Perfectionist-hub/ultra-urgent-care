@@ -5,8 +5,8 @@ export const photos = {
   pain: { src: "/images/pain-consult.jpg", width: 1152, height: 864 },
   video: { src: "/images/video-visit.jpg", width: 1152, height: 864 },
   storefront: { src: "/images/south-side-clinic.jpg", width: 1152, height: 864 },
-  ahsan: { src: "/images/provider-ahsan.jpg", width: 286, height: 338 },
-  sidhu: { src: "/images/provider-sidhu.jpg", width: 250, height: 338 },
+  ahsan: { src: "/images/provider-ahsan-fit.jpg", width: 360, height: 470 },
+  sidhu: { src: "/images/provider-sidhu-fit.jpg", width: 360, height: 470 },
 } as const;
 
 export type PhotoName = keyof typeof photos;

@@ -16,11 +16,11 @@ export function ProvidersView() {
       <div className="mt-12 space-y-8">
         {copy.providers.map((provider) => (
           <article key={provider.id} className="grid gap-6 overflow-hidden rounded-[1.75rem] border border-border bg-card lg:grid-cols-[18rem_1fr]">
-            <figure className={provider.id === "sidhu" ? "bg-lilac" : "bg-sand"}>
+            <figure className="bg-[#e4eef6]">
               <ClinicPhoto
                 name={provider.id === "sidhu" ? "sidhu" : "ahsan"}
                 alt={provider.id === "sidhu" ? copy.gallery.sidhu : copy.gallery.ahsan}
-                className="h-80 w-full object-cover object-top lg:h-full"
+                className="h-auto w-full object-contain"
                 sizes="(min-width: 1024px) 18rem, 100vw"
               />
             </figure>
