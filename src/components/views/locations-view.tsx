@@ -3,13 +3,17 @@
 import { ClinicPhoto } from "@/components/clinic-photo";
 import { OpenNow } from "@/components/open-now";
 import { useLocale } from "@/components/locale-provider";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 import { hoursLabel, locations, placeName } from "@/lib/clinic";
+import { getPages } from "@/lib/pages-copy";
 import { locationPhoto, type PhotoName } from "@/lib/gallery";
 import { getCopy } from "@/lib/ui-copy";
 
 export function LocationsView() {
   const { locale } = useLocale();
   const copy = getCopy(locale);
+  const doors = getPages(locale).doors;
   const roles = locale === "es"
     ? ["Urgencias al mediodía en el lado sur.", "Horario de tarde y noche para los suburbios del noroeste."]
     : ["Midday urgent care on the South Side.", "Evening hours for the northwest suburbs."];
@@ -23,7 +27,7 @@ export function LocationsView() {
       </div>
       <div className="mt-12 grid gap-6 lg:grid-cols-2">
         {locations.map((location, index) => (
-          <article key={location.id} className="overflow-hidden rounded-[1.6rem] border border-border bg-card">
+          <article id={location.id} key={location.id} className="overflow-hidden rounded-[1.6rem] border border-border bg-card">
             <ClinicPhoto
               name={locationPhoto[location.id] ?? "storefront"}
               alt={copy.gallery[(locationPhoto[location.id] ?? "storefront") as PhotoName]}
@@ -41,12 +45,18 @@ export function LocationsView() {
             </p>
             <p className="mt-3 text-muted-foreground">{hoursLabel(location, locale)}</p>
             <p className="text-muted-foreground">{copy.locationsPage.sunday}</p>
-            <div className="mt-6 flex flex-wrap gap-4 text-sm">
-              <a className="font-medium text-primary" href={`tel:${location.phoneTel}`}>
+            <div className="mt-6 flex flex-wrap gap-3 text-sm">
+              <Link href={`/book?location=${location.id}`} className={buttonVariants({ className: "h-10 rounded-full px-4" })}>
+                {doors.book}
+              </Link>
+              <a className={buttonVariants({ variant: "outline", className: "h-10 rounded-full px-4" })} href={`tel:${location.phoneTel}`}>
                 {copy.locationsPage.call} {location.phoneDisplay}
               </a>
-              <a className="font-medium text-primary" href={location.mapsUrl} target="_blank" rel="noreferrer">
+              <a className="inline-flex h-10 items-center font-medium text-primary" href={location.mapsUrl} target="_blank" rel="noreferrer">
                 {copy.locationsPage.maps}
+              </a>
+              <a className="inline-flex h-10 items-center font-medium text-primary" href={location.reviewsUrl} target="_blank" rel="noreferrer">
+                {doors.reviews}
               </a>
             </div>
             </div>

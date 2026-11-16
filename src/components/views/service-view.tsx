@@ -27,8 +27,14 @@ export function ServiceView({ slug }: { slug: string }) {
       <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{service.summary}</p>
       <p className="mt-4 max-w-2xl leading-relaxed">{service.arrive}</p>
       <div className="mt-8 flex flex-wrap gap-3">
-        <Link href="/visit" className={buttonVariants({ className: "h-11 rounded-full px-5" })}>{copy.service.callback}</Link>
-        <Link href="/locations" className={buttonVariants({ variant: "outline", className: "h-11 rounded-full px-5" })}>{copy.service.hours}</Link>
+        <Link
+          href={`/book?visit=${service.slug === "pain-management" ? "pain" : service.slug === "psychiatry" ? "psychiatry" : "urgent"}`}
+          className={buttonVariants({ className: "h-11 rounded-full px-5" })}
+        >
+          {copy.service.book}
+        </Link>
+        <Link href="/visit" className={buttonVariants({ variant: "outline", className: "h-11 rounded-full px-5" })}>{copy.service.callback}</Link>
+        <Link href="/locations" className="inline-flex h-11 items-center text-sm text-primary">{copy.service.hours}</Link>
       </div>
       <div className="mt-14 grid gap-12 lg:grid-cols-2">
         <section>

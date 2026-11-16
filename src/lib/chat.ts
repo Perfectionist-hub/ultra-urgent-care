@@ -87,6 +87,8 @@ function extra(locale: Locale) {
     hoffman: pick(locale, "Hoffman Estates address", "Dirección de Hoffman Estates"),
     chicago: pick(locale, "95th Street address", "Dirección de la calle 95"),
     hours: pick(locale, "Clinic hours", "Horario"),
+    book: pick(locale, "Book a visit", "Pedir una cita"),
+    reviews: pick(locale, "Google reviews", "Reseñas de Google"),
     treat: pick(locale, "What do you treat?", "¿Qué atienden?"),
     er: pick(locale, "Is this an emergency?", "¿Esto es una emergencia?"),
   };
@@ -155,8 +157,8 @@ export function answerQuestion(raw: string, fallback: Locale = "en"): ChatReply 
     return {
       text: pick(
         locale,
-        `Most major insurance plans are accepted, and self-pay is available. Plans are not all treated the same at every location or for every service, so call and name your plan before you come. ${phones(locale)}. Email ${practice.email} only for scheduling notes — do not send medical details by email.`,
-        `Se aceptan la mayoría de los seguros principales, y también hay pago particular. No todos los planes se tratan igual en cada clínica o para cada servicio, así que llame y diga el nombre de su plan antes de venir. ${phones(locale)}. Escriba a ${practice.email} solo para notas de cita: no envíe detalles médicos por correo.`,
+        `Most major insurance plans are accepted, and self-pay is available. The Insurance page on this site says what to bring. Plans are not all treated the same at every location or for every service, so call and name your plan before you come. Do not put a member number in this chat. ${phones(locale)}.`,
+        `Se aceptan la mayoría de los seguros principales, y también hay pago particular. La página de Seguro de este sitio dice qué traer. No todos los planes se tratan igual en cada clínica o para cada servicio, así que llame y diga el nombre de su plan antes de venir. No ponga un número de miembro en este chat. ${phones(locale)}.`,
       ),
       suggestions: [bag.open, bag.bring],
     };
@@ -185,10 +187,10 @@ export function answerQuestion(raw: string, fallback: Locale = "en"): ChatReply 
       text:
         pick(
           locale,
-          "Urgent care is walk-in during posted hours. You do not need an appointment for illness, injury, labs, or physicals. Pain visits with Dr. Ahsan and video psychiatry with Lt. Col. (Ret.) Virpal Sidhu are scheduled. Call and ask if a same-day slot is open. ",
-          "Las urgencias son sin cita durante el horario publicado. No necesita cita para una enfermedad, una lesión, laboratorios o un examen físico. Las visitas de dolor con el Dr. Ahsan y la psiquiatría por video con la Tte. Cnel. (Ret.) Virpal Sidhu se programan. Llame y pregunte si hay un cupo el mismo día. ",
+          "Urgent care is walk-in during posted hours. You do not need an appointment for illness, injury, labs, or physicals. Pain visits with Dr. Ahsan and video psychiatry with Lt. Col. (Ret.) Virpal Sidhu are scheduled. Use Book a visit on this site to ask for a time, then call so the clinic can confirm it. Nothing on the form is saved here. ",
+          "Las urgencias son sin cita durante el horario publicado. No necesita cita para una enfermedad, una lesión, laboratorios o un examen físico. Las visitas de dolor con el Dr. Ahsan y la psiquiatría por video con la Tte. Cnel. (Ret.) Virpal Sidhu se programan. Use Pedir una cita en este sitio para pedir una hora, y luego llame para que la clínica la confirme. El formulario no se guarda aquí. ",
         ) + hoursBlock(locale),
-      suggestions: [bag.pain, bag.psych, bag.bring],
+      suggestions: [bag.book, bag.pain, bag.psych],
     };
   }
 
@@ -266,6 +268,24 @@ export function answerQuestion(raw: string, fallback: Locale = "en"): ChatReply 
         `Llame al ${phones(locale)}. Escriba a ${practice.email} solo para pedir que le llamen. No incluya síntomas, medicamentos ni números de seguro en un correo ni en este chat.`,
       ),
       suggestions: [bag.open, bag.walk],
+    };
+  }
+
+  if (has(text, /\b(review|reviews|rating|stars|google review|resena|resenas|opinion|estrellas)\b/)) {
+    const lines = locations.map((location) =>
+      pick(
+        locale,
+        `${placeName(location, locale)} reviews stay on that clinic’s Google listing: ${location.street}, ${location.cityLine}.`,
+        `Las reseñas de ${placeName(location, locale)} se quedan en el listado de Google de esa clínica: ${location.street}, ${location.cityLine}.`,
+      ),
+    );
+    return {
+      text: pick(
+        locale,
+        `${lines.join(" ")} This site does not copy quotes or show a star score. Open Reviews on Google from the Reviews page, after you have the address.`,
+        `${lines.join(" ")} Este sitio no copia citas ni muestra una puntuación. Abra Reseñas en Google desde la página de reseñas, con la dirección a la vista.`,
+      ),
+      suggestions: [bag.reviews, bag.hoffman, bag.chicago],
     };
   }
 

@@ -27,9 +27,17 @@ export function ServicesView() {
               <p className="text-xs tracking-[0.16em] text-clay uppercase">{service.kicker}</p>
               <h2 className="mt-2 font-display text-4xl tracking-tight text-ink">{service.name}</h2>
               <p className="mt-4 leading-relaxed text-muted-foreground">{service.summary}</p>
-              <Link href={`/services/${service.slug}`} className="mt-5 inline-block text-sm text-primary">
-                {copy.servicesPage.more}
-              </Link>
+              <div className="mt-5 flex flex-wrap gap-4 text-sm">
+                <Link href={`/services/${service.slug}`} className="text-primary">
+                  {copy.servicesPage.more}
+                </Link>
+                <Link
+                  href={`/book?visit=${service.slug === "pain-management" ? "pain" : service.slug === "psychiatry" ? "psychiatry" : "urgent"}`}
+                  className="text-primary"
+                >
+                  {copy.service.book}
+                </Link>
+              </div>
             </div>
             <ul className="space-y-2 px-6 pb-6 text-sm leading-relaxed sm:px-8 lg:py-8 lg:pr-8 lg:pl-0">
               {service.goodFor.slice(0, 5).map((item) => (

@@ -15,8 +15,14 @@ export function SiteHeader() {
   const copy = getCopy(locale);
   const links = [
     { href: "/services", label: copy.nav.care },
-    { href: "/providers", label: copy.nav.providers },
+    { href: "/what-we-treat", label: copy.nav.treat },
     { href: "/locations", label: copy.nav.locations },
+    { href: "/providers", label: copy.nav.providers },
+  ];
+  const more = [
+    { href: "/insurance", label: copy.footer.insurance },
+    { href: "/reviews", label: copy.footer.reviews },
+    { href: "/visit", label: copy.nav.callback },
     { href: "/flyer", label: copy.nav.flyer },
   ];
 
@@ -43,8 +49,8 @@ export function SiteHeader() {
             ))}
           </div>
           <LanguageSwitch />
-          <Link href="/visit" className={buttonVariants({ className: "h-10 rounded-full px-4" })}>
-            {copy.nav.callback}
+          <Link href="/book" className={buttonVariants({ className: "h-10 rounded-full px-4" })}>
+            {copy.nav.book}
           </Link>
         </div>
         <button
@@ -61,6 +67,11 @@ export function SiteHeader() {
       {open ? (
         <nav id="mobile-nav" className="border-t border-border px-5 py-4 md:hidden">
           <ul className="space-y-3 text-lg">
+            <li>
+              <Link href="/book" onClick={() => setOpen(false)} className="font-medium text-primary">
+                {copy.nav.book}
+              </Link>
+            </li>
             {links.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} onClick={() => setOpen(false)}>
@@ -68,11 +79,13 @@ export function SiteHeader() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link href="/visit" onClick={() => setOpen(false)}>
-                {copy.nav.callback}
-              </Link>
-            </li>
+            {more.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} onClick={() => setOpen(false)}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
             <li>
               <LanguageSwitch />
             </li>
@@ -89,6 +102,9 @@ export function CallBar() {
   return (
     <div className="site-chrome fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-2 backdrop-blur md:hidden">
       <div className="grid grid-cols-2 gap-2">
+        <Link href="/book" className={buttonVariants({ className: "col-span-2 h-11 rounded-full" })}>
+          {copy.nav.book}
+        </Link>
         {locations.map((location) => (
           <a
             key={location.id}

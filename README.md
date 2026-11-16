@@ -14,6 +14,10 @@ The dev server listens on port 3847. Pages worth opening first:
 - `/` — hours that follow Chicago time, and the three ways to be seen
 - `/flyer` — letter-size flyer, then use Print or save as PDF
 - `/campaign` — one-page, four-phase campaign for a presentation
+- `/book` — request a time; the clinic confirms by phone, and nothing is stored
+- `/what-we-treat` — clickable problems that open the booking form
+- `/insurance` — what to ask before you come, including self-pay
+- `/reviews` — links to each clinic’s Google listing
 - `/visit` — callback script that stays on the device
 - `/playbook` — the 90-day marketing plan for the practice
 
@@ -22,7 +26,7 @@ The front-desk chat is on every page. It answers from the clinic facts in `src/l
 ## What is intentionally not here
 
 - No stored appointment requests. The form opens the phone or the visitor’s own email app.
-- No invented wait times, award badges, or patient quotes. The previous site included a Sunday review while the published hours say Sunday is closed.
+- No invented wait times, award badges, star scores, or patient quotes. Google reviews stay on each clinic’s map listing. The previous site included a Sunday review while the published hours say Sunday is closed.
 - No diagnosis in the chat. Emergencies are pointed to 911, and a crisis is pointed to 911 and 988.
 
 Hours, phones, services, and clinician notes come from the practice’s public site and flyer. Confirm 95th Street is seeing patients before advertising that door: the organization NPI on file is Hoffman Estates.

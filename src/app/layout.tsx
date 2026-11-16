@@ -67,7 +67,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <LocaleProvider>
           <SiteNotice />
           <SiteHeader />
-          <div className="pb-36 print:pb-0 md:pb-24">{children}</div>
+          <div className="pb-52 print:pb-0 md:pb-24">{children}</div>
           <SiteFooter />
           <CallBar />
           <ChatWidget />

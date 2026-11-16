@@ -6,12 +6,16 @@ import { ClinicPhoto } from "@/components/clinic-photo";
 import { FaqList } from "@/components/faq-list";
 import { OpenNow } from "@/components/open-now";
 import { useLocale } from "@/components/locale-provider";
+import { concernList } from "@/lib/appointments";
+import { hoursCompact, locations, placeName } from "@/lib/clinic";
 import { servicePhoto, type PhotoName } from "@/lib/gallery";
+import { getPages } from "@/lib/pages-copy";
 import { getCopy } from "@/lib/ui-copy";
 
 export function HomeView() {
   const { locale } = useLocale();
   const copy = getCopy(locale);
+  const pages = getPages(locale);
   return (
     <main id="content">
       <section className="mx-auto grid max-w-6xl items-end gap-10 px-5 pt-8 pb-16 lg:grid-cols-[1.15fr_0.85fr] lg:pt-16">
@@ -20,8 +24,8 @@ export function HomeView() {
           <h1 className="mt-4 max-w-xl font-display text-5xl leading-[0.96] tracking-tight text-ink sm:text-7xl">{copy.home.title}</h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-foreground/80">{copy.home.lede}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/visit" className={buttonVariants({ className: "h-12 rounded-full px-6 text-base" })}>
-              {copy.home.callback}
+            <Link href="/book" className={buttonVariants({ className: "h-12 rounded-full px-6 text-base" })}>
+              {copy.home.book}
             </Link>
             <Link href="/locations" className={buttonVariants({ variant: "outline", className: "h-12 rounded-full px-6 text-base" })}>
               {copy.home.hours}
@@ -31,6 +35,19 @@ export function HomeView() {
         <div className="order-1 lg:order-2">
           <OpenNow />
         </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 pb-12">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {pages.actions.map((action, index) => (
+            <li key={action.href}>
+              <Link href={action.href} className={`block h-full rounded-[1.4rem] p-5 ${["bg-foam", "bg-sand", "bg-gold", "bg-lilac", "bg-sand", "bg-foam"][index]}`}>
+                <span className="font-display text-2xl tracking-tight text-ink">{action.title}</span>
+                <span className="mt-2 block text-sm leading-relaxed text-foreground/80">{action.body}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="mx-auto max-w-6xl px-5 pb-14">
@@ -76,6 +93,22 @@ export function HomeView() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 py-14">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <h2 className="font-display text-4xl tracking-tight text-ink">{pages.treat.title}</h2>
+          <Link href="/what-we-treat" className="text-sm text-primary">{pages.treat.kicker}</Link>
+        </div>
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {concernList.map((item) => (
+            <li key={item.id}>
+              <Link href={`/book?visit=${item.visit}&concern=${item.id}`} className="inline-flex rounded-full border border-border bg-card px-4 py-2 text-sm hover:border-primary hover:text-primary">
+                {locale === "es" ? item.es : item.en}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
       <section className="mx-auto max-w-6xl px-5 py-16">
         <p className="text-xs tracking-[0.18em] text-primary uppercase">{copy.why.kicker}</p>
         <h2 className="mt-3 max-w-2xl font-display text-4xl tracking-tight text-ink">{copy.why.title}</h2>
@@ -99,6 +132,72 @@ export function HomeView() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-card">
+        <div className="mx-auto max-w-6xl px-5 py-14">
+          <p className="text-xs tracking-[0.18em] text-primary uppercase">{pages.steps.kicker}</p>
+          <h2 className="mt-3 font-display text-4xl tracking-tight text-ink">{pages.steps.title}</h2>
+          <ol className="mt-8 grid gap-4 md:grid-cols-3">
+            {pages.steps.items.map(([title, body], index) => (
+              <li key={title} className="rounded-[1.4rem] bg-sand p-5">
+                <span className="font-display text-xl text-clay">0{index + 1}</span>
+                <h3 className="mt-2 font-display text-2xl tracking-tight text-ink">{title}</h3>
+                <p className="mt-2 leading-relaxed text-foreground/80">{body}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <p className="text-xs tracking-[0.18em] text-primary uppercase">{pages.doors.kicker}</p>
+        <h2 className="mt-3 font-display text-4xl tracking-tight text-ink">{pages.doors.title}</h2>
+        <div className="mt-8 grid gap-4 lg:grid-cols-2">
+          {locations.map((location) => (
+            <article key={location.id} className="rounded-[1.5rem] border border-border bg-card p-6">
+              <h3 className="font-display text-3xl tracking-tight text-ink">{placeName(location, locale)}</h3>
+              <p className="mt-2 text-muted-foreground">{hoursCompact(location, locale)}</p>
+              <p className="mt-1">
+                {location.street}, {location.cityLine}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3 text-sm">
+                <Link href={`/book?location=${location.id}`} className={buttonVariants({ className: "h-10 rounded-full px-4" })}>
+                  {pages.doors.book}
+                </Link>
+                <a href={`tel:${location.phoneTel}`} className={buttonVariants({ variant: "outline", className: "h-10 rounded-full px-4" })}>
+                  {pages.doors.call} {location.phoneDisplay}
+                </a>
+                <a href={location.mapsUrl} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center text-primary">
+                  {pages.doors.maps}
+                </a>
+                <a href={location.reviewsUrl} target="_blank" rel="noreferrer" className="inline-flex h-10 items-center text-primary">
+                  {pages.doors.reviews}
+                </a>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-ink text-primary-foreground">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-14 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-xl">
+            <p className="text-xs tracking-[0.18em] text-gold uppercase">{pages.reviewsBand.kicker}</p>
+            <h2 className="mt-3 font-display text-4xl tracking-tight">{pages.reviewsBand.title}</h2>
+            <p className="mt-4 leading-relaxed text-white/80">{pages.reviewsBand.body}</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {locations.map((location) => (
+              <a key={location.id} href={location.reviewsUrl} target="_blank" rel="noreferrer" className="inline-flex h-11 items-center rounded-full bg-gold px-4 text-sm font-medium text-ink">
+                {pages.reviewsBand.open}: {placeName(location, locale)}
+              </a>
+            ))}
+            <Link href="/reviews" className="inline-flex h-11 items-center text-sm text-gold">
+              {pages.reviewsBand.all}
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -153,7 +252,7 @@ export function HomeView() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-16">
+      <section id="bring" className="mx-auto max-w-6xl px-5 py-16">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div>
             <p className="text-xs tracking-[0.18em] text-primary uppercase">{copy.home.bringKicker}</p>

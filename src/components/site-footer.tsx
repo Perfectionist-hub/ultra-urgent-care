@@ -10,7 +10,7 @@ export function SiteFooter() {
   const { locale } = useLocale();
   const copy = getCopy(locale);
   return (
-    <footer className="site-chrome border-t border-border bg-sand/50 pb-36 md:pb-24">
+    <footer className="site-chrome border-t border-border bg-sand/50 pb-52 md:pb-24">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
           <Wordmark />
@@ -35,7 +35,11 @@ export function SiteFooter() {
         <div>
           <p className="text-xs tracking-[0.16em] uppercase text-muted-foreground">{copy.footer.onSite}</p>
           <ul className="mt-3 space-y-2 text-sm">
+            <li><Link href="/book">{copy.footer.book}</Link></li>
             <li><Link href="/services">{copy.footer.care}</Link></li>
+            <li><Link href="/what-we-treat">{copy.footer.treat}</Link></li>
+            <li><Link href="/insurance">{copy.footer.insurance}</Link></li>
+            <li><Link href="/reviews">{copy.footer.reviews}</Link></li>
             <li><Link href="/providers">{copy.footer.providers}</Link></li>
             <li><Link href="/locations">{copy.footer.hours}</Link></li>
             <li><Link href="/visit">{copy.footer.callback}</Link></li>

@@ -22,6 +22,7 @@ export type Location = {
   openHour: number;
   closeHour: number;
   mapsUrl: string;
+  reviewsUrl: string;
   role: string;
 };
 
@@ -41,6 +42,8 @@ export const locations: Location[] = [
     closeHour: 18,
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=1925+E+95th+St+Chicago+IL+60617",
+    reviewsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Ultra+Urgent+Care+Pain+Management+1925+E+95th+St+Chicago+IL+60617",
     role: "Midday urgent care on the South Side.",
   },
   {
@@ -58,6 +61,8 @@ export const locations: Location[] = [
     closeHour: 22,
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=136+W+Higgins+Road+Hoffman+Estates+IL+60169",
+    reviewsUrl:
+      "https://www.google.com/maps/search/?api=1&query=Ultra+Urgent+Care+Pain+Management+136+W+Higgins+Road+Hoffman+Estates+IL+60169",
     role: "Evening hours for the northwest suburbs.",
   },
 ];
