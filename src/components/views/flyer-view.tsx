@@ -27,7 +27,7 @@ export function FlyerView() {
         </div>
         <div className="flex flex-wrap gap-3">
           <PrintButton />
-          <a href="/ultra-urgent-care-flyer.pdf" download className="inline-flex h-11 items-center rounded-full border border-border bg-card px-5 text-sm font-medium text-ink">
+          <a href="/flyer/download" className="inline-flex h-11 items-center rounded-full border border-border bg-card px-5 text-sm font-medium text-ink">
             {locale === "es" ? "Descargar el PDF" : "Download the PDF"}
           </a>
         </div>
