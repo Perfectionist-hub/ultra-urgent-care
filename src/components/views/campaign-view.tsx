@@ -14,7 +14,6 @@ const phases = [
     n: "01",
     name: "Foundation",
     when: "Days 1–14",
-    span: "14fr",
     rail: "bg-primary text-primary-foreground",
     job: "Put one name, both hours, and both languages in public before a dollar is spent.",
     who: "Staff first, then South Side walk-in, after-work Hoffman, pain referrals, and video psychiatry.",
@@ -26,7 +25,6 @@ const phases = [
     n: "02",
     name: "Show up locally",
     when: "Days 15–45",
-    span: "31fr",
     rail: "bg-clay text-ink",
     job: "Be where a same-day decision happens. Do not buy the click yet.",
     who: "South Side walk-in, in English and Spanish. After-work Hoffman. Pain referrals to Dr. Ahsan. Adults who will call for video psychiatry.",
@@ -38,7 +36,6 @@ const phases = [
     n: "03",
     name: "Spend only while the door is open",
     when: "Days 46–75",
-    span: "30fr",
     rail: "bg-gold text-ink",
     job: "Buy search inside real hours, and only for a door staff has confirmed is seeing patients.",
     who: "After-work Hoffman leads the ads. South Side walk-in stays out of paid ads until 95th Street is confirmed. Pain and video psychiatry stay separate.",
@@ -50,7 +47,6 @@ const phases = [
     n: "04",
     name: "Review and keep what works",
     when: "Days 76–90",
-    span: "15fr",
     rail: "bg-ink text-gold",
     job: "Keep what produced a call or a booked visit. Pause what cannot show that.",
     who: "Count them apart: South Side walk-in, after-work Hoffman, pain referrals, and video psychiatry.",
@@ -119,8 +115,7 @@ export function CampaignView() {
         <div className="flex flex-wrap gap-3">
           <PrintButton />
           <a
-            href="/ultra-campaign-one-pager.pdf"
-            download
+            href="/campaign/download"
             className="inline-flex h-11 items-center rounded-full border border-border bg-card px-5 text-sm font-medium text-ink"
           >
             {copy.download}
@@ -152,7 +147,7 @@ export function CampaignView() {
 
           <div className="grid shrink-0 grid-cols-2">
             <div className="bg-foam px-[0.28in] py-[0.08in]">
-              <p className="text-[8px] tracking-[0.14em] uppercase">Hoffman Estates · the door ads can name</p>
+              <p className="text-[8px] tracking-[0.14em] uppercase">Hoffman Estates · safe to name in paid search</p>
               <p className="mt-0.5 font-display text-[16px] leading-none tracking-tight">
                 {clockSpan(hoffman.openHour, hoffman.closeHour)} · {hoffman.phoneDisplay}
               </p>
