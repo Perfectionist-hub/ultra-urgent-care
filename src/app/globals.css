@@ -161,6 +161,8 @@
 
 .flyer-sheet {
   page: flyer;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 @media screen and (max-width: 900px) {
@@ -191,6 +193,14 @@
     transform: none !important;
     box-shadow: none !important;
     border: none !important;
+  }
+  .campaign-stage {
+    height: 11in;
+    overflow: hidden;
+    margin: 0;
+  }
+  a[href="#content"] {
+    display: none !important;
   }
 }
 

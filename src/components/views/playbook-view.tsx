@@ -8,6 +8,8 @@ const packs = {
     kicker: "For the practice, not for patients",
     title: "A 90-day plan to make the clinics easier to choose.",
     lede: "The visits you can actually offer are the message: a walk-in, a late door in Hoffman Estates, a named pain physician, and a video psychiatry visit. The site and the flyer now say that in English and Spanish. The checkable list for these 90 days is the internal marketing canvas, kept off this public page.",
+    sheet: "Open the one-page campaign",
+    sheetNote: "Four phases on one letter sheet, for the presentation.",
     sayTitle: "Say this, and stop saying the rest.",
     say: "“Walk in for urgent care. Entre sin cita. Hoffman Estates is open until 10 PM, Monday through Saturday. 95th Street is open noon to 6. Call for pain and for video psychiatry. If it might be an emergency, call 911.”",
     retire: "Retire “premium,” “zero wait,” “15+ years,” award badges, and any patient quote you cannot match to a real visit. One published testimonial describes a Sunday visit. Both clinics are closed Sunday.",
@@ -78,6 +80,8 @@ const packs = {
     kicker: "Para la práctica, no para los pacientes",
     title: "Un plan de 90 días para que sea más fácil elegir estas clínicas.",
     lede: "El mensaje son las visitas que de verdad pueden ofrecer: entrar sin cita, una puerta abierta hasta tarde en Hoffman Estates, un médico de dolor con nombre y una visita de psiquiatría por video. El sitio y el volante ya lo dicen en inglés y en español. La lista para marcar de estos 90 días está en el canvas interno de marketing, fuera de esta página pública.",
+    sheet: "Abrir la campaña de una página",
+    sheetNote: "Cuatro fases en una hoja tamaño carta, para la presentación.",
     sayTitle: "Diga esto, y deje de decir el resto.",
     say: "“Entre sin cita para urgencias. Walk in for urgent care. Hoffman Estates está abierto hasta las 10 p. m., de lunes a sábado. La calle 95 está abierta de mediodía a 6. Llame para dolor y para psiquiatría por video. Si puede ser una emergencia, llame al 911.”",
     retire: "Retire “premium”, “cero espera”, “más de 15 años”, las insignias de premios y cualquier cita de un paciente que no pueda ligar a una visita real. Un testimonio publicado describe una visita en domingo. Las dos clínicas cierran el domingo.",
@@ -154,6 +158,10 @@ export function PlaybookView() {
       <p className="text-xs tracking-[0.18em] text-primary uppercase">{copy.kicker}</p>
       <h1 className="mt-3 font-display text-5xl tracking-tight text-ink">{copy.title}</h1>
       <p className="mt-5 text-lg leading-relaxed text-muted-foreground">{copy.lede}</p>
+      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+        <Link className="font-medium text-primary" href="/campaign">{copy.sheet}</Link>
+        . {copy.sheetNote}
+      </p>
       <section className="mt-10 rounded-[1.4rem] bg-sand p-6">
         <h2 className="font-display text-2xl text-ink">{copy.sayTitle}</h2>
         <p className="mt-3 leading-relaxed">{copy.say}</p>

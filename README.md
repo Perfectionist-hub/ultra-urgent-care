@@ -13,6 +13,7 @@ The dev server listens on port 3847. Pages worth opening first:
 
 - `/` — hours that follow Chicago time, and the three ways to be seen
 - `/flyer` — letter-size flyer, then use Print or save as PDF
+- `/campaign` — one-page, four-phase campaign for a presentation
 - `/visit` — callback script that stays on the device
 - `/playbook` — the 90-day marketing plan for the practice
 
